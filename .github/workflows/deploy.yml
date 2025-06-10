@@ -1,24 +1,21 @@
 name: 📄 Deploy to GitHub Pages
 
-# ① Permisos globales para permitir a la acción publicar en Pages
 permissions:
-  contents: read    # lectura del repo
-  pages: write      # escritura en GitHub Pages
-  id-token: write   # para emitir el OIDC token
+  contents: read
+  pages: write
+  id-token: write
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    # ② Vincula este job al entorno "github-pages"
     environment: github-pages
 
     steps:
-      # 1) Checkout
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -28,14 +25,12 @@ jobs:
           echo "Contenido de la raíz del repositorio:"
           ls -R .
 
-      # 3) Sube todo lo de la raíz como artefacto de Pages
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: .                 # apunta a la raíz con tu index.html
+          path: .                 # apunta al directorio con index.html
           artifact_name: github-pages
 
-      # 4) Despliega a GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
