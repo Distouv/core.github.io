@@ -7,28 +7,25 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1) Check out your code
+      # 1) Checkout del código
       - uses: actions/checkout@v3
 
-      # 2) Build your site into ./public (adjust for your framework)
-      - name: Build static site
+      # 2) (Opcional) Ver qué hay en la carpeta static/
+      - name: Debug: List static files
         run: |
-          npm install
-          npm run build  # or hugo, jekyll build, etc.
-        # Make sure your build outputs into `public/` (or change below)
+          echo "Contenido de ./static:"
+          ls -R static
 
-      # 3) Upload the built files as a Pages artifact
+      # 3) Subir los archivos estáticos como artefacto de Pages
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Path to your generated site folder
-          path: public
-          # This name must match what deploy-pages is looking for:
+          # Cambia "static" por "." para la raíz, o "docs" si usas docs/
+          path: static
           artifact_name: github-pages
 
-      # 4) Deploy the artifact to GitHub Pages
+      # 4) Desplegar a Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
-          # If you want to deploy a different branch or folder, adjust here
           artifact: github-pages
