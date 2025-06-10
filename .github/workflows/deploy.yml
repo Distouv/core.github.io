@@ -1,6 +1,6 @@
 name: 📄 Deploy to GitHub Pages
 
-# ① Permisos para que la acción pueda publicar en Pages
+# ① Permisos globales para permitir a la acción publicar en Pages
 permissions:
   contents: read    # lectura del repo
   pages: write      # escritura en GitHub Pages
@@ -13,14 +13,16 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: github-pages   # ② Vincula al entorno de Pages
+
+    # ② Vincula este job al entorno "github-pages"
+    environment: github-pages
 
     steps:
-      # 1) Checkout del código
+      # 1) Checkout
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2) (Opcional) Verifica que tus archivos estén donde los esperas
+      # 2) (Opcional) Verifica que index.html esté en la raíz
       - name: Debug: List root files
         run: |
           echo "Contenido de la raíz del repositorio:"
@@ -30,7 +32,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: .                 # apunta a la carpeta que contiene index.html
+          path: .                 # apunta a la raíz con tu index.html
           artifact_name: github-pages
 
       # 4) Despliega a GitHub Pages
