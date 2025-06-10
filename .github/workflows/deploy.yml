@@ -13,7 +13,7 @@ jobs:
       # 2) (Opcional) Ver qué hay en la carpeta static/
       - name: Debug: List static files
         run: |
-          echo "Contenido de ./static:"
+          echo "Contenido de ."
           ls -R static
 
       # 3) Subir los archivos estáticos como artefacto de Pages
