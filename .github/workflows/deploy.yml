@@ -21,7 +21,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Cambia "static" por "." para la raíz, o "docs" si usas docs/
-          path: static
+          path: .
           artifact_name: github-pages
 
       # 4) Desplegar a Pages
